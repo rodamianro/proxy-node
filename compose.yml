@@ -1,0 +1,22 @@
+version: '3.6'
+
+services:
+  proxy-node:
+    build: 
+      context: .
+      target: deploy
+      dockerfile: ./Dockerfile
+    image: rodamianro/util:proxy-node
+    container_name: proxy-node
+    env_file:
+      - .env
+    networks:
+      proxy-network:
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - ${DOCKER_PORT}:${PORT}
+
+networks:
+  proxy-network:
+    driver: bridge
